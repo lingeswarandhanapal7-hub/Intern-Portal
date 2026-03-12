@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import ElectricBorder from '../../components/ElectricBorder/ElectricBorder';
 import { FiBriefcase, FiMail, FiLock, FiEye, FiEyeOff, FiArrowRight, FiRefreshCw } from 'react-icons/fi';
 
@@ -26,7 +26,7 @@ export default function CompanyRegister() {
     if (form.password !== form.confirmPassword) { setError('Passwords do not match'); return; }
     setLoading(true);
     try {
-      const res = await axios.post('/api/auth/register', { ...form, role: 'company' });
+      const res = await api.post('/auth/register', { ...form, role: 'company' });
       if (res.data.devOtp) setDevOtp(res.data.devOtp);
       setStep(2);
     } catch (err) {
@@ -37,7 +37,7 @@ export default function CompanyRegister() {
   const handleOTP = async () => {
     setError(''); setLoading(true);
     try {
-      await axios.post('/api/auth/verify-otp', { email: form.email, otp });
+      await api.post('/auth/verify-otp', { email: form.email, otp });
       setStep(3);
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid OTP. Please check and try again.');
@@ -47,7 +47,7 @@ export default function CompanyRegister() {
   const resendOTP = async () => {
     setResendMsg(''); setError('');
     try {
-      const res = await axios.post('/api/auth/resend-otp', { email: form.email });
+      const res = await api.post('/auth/resend-otp', { email: form.email });
       if (res.data.devOtp) setDevOtp(res.data.devOtp);
       setResendMsg('A new OTP has been sent!');
       setOtp('');

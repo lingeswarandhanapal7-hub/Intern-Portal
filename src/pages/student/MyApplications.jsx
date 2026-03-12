@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import { FiGrid, FiFileText, FiLink, FiLogOut, FiClock, FiCalendar } from 'react-icons/fi';
 
@@ -34,7 +34,7 @@ export default function MyApplications() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/applications/my', { headers: { Authorization: `Bearer ${token}` } })
+    api.get('/applications/my', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => setApplications(r.data))
       .catch(console.error)
       .finally(() => setLoading(false));

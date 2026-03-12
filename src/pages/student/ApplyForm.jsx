@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import ElectricBorder from '../../components/ElectricBorder/ElectricBorder';
 import { FiArrowLeft, FiUpload, FiUser, FiPhone, FiBook } from 'react-icons/fi';
@@ -18,7 +18,7 @@ export default function ApplyForm() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get(`/api/internships/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    api.get(`/internships/${id}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(r => setInternship(r.data)).catch(console.error);
   }, [id, token]);
 
@@ -30,7 +30,7 @@ export default function ApplyForm() {
     data.append('internshipId', id);
     if (resume) data.append('resume', resume);
     try {
-      await axios.post('/api/applications', data, { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } });
+      await api.post('/applications', data, { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } });
       setSuccess(true);
     } catch (err) {
       setError(err.response?.data?.message || 'Application failed');

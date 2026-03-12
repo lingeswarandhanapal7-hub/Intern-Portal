@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import ElectricBorder from '../../components/ElectricBorder/ElectricBorder';
 import { FiArrowLeft } from 'react-icons/fi';
@@ -22,7 +22,7 @@ export default function PostInternship() {
     e.preventDefault();
     setError(''); setLoading(true);
     try {
-      await axios.post('/api/internships', form, { headers: { Authorization: `Bearer ${token}` } });
+      await api.post('/internships', form, { headers: { Authorization: `Bearer ${token}` } });
       navigate('/company/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to post internship');

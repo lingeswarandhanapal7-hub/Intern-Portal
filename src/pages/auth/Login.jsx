@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import ElectricBorder from '../../components/ElectricBorder/ElectricBorder';
 import Hyperspeed from '../../components/Hyperspeed/Hyperspeed';
@@ -20,7 +20,7 @@ export default function Login() {
     e.preventDefault();
     setError(''); setLoading(true);
     try {
-      const res = await axios.post('/api/auth/login', { ...form, role });
+      const res = await api.post('/auth/login', { ...form, role });
       login(res.data.user, res.data.token);
       navigate(role === 'company' ? '/company/dashboard' : '/student/dashboard');
     } catch (err) {

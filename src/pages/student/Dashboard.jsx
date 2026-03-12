@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import { FiGrid, FiSearch, FiFileText, FiLink, FiLogOut, FiClock, FiDollarSign, FiCalendar, FiFilter } from 'react-icons/fi';
 
@@ -34,7 +34,7 @@ export default function StudentDashboard() {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    axios.get('/api/internships', { headers: { Authorization: `Bearer ${token}` } })
+    api.get('/internships', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => { setInternships(r.data); setFiltered(r.data); })
       .catch(console.error)
       .finally(() => setLoading(false));

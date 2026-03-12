@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import { FiGrid, FiPlusCircle, FiUsers, FiLogOut, FiEdit, FiTrash2, FiClock, FiCalendar } from 'react-icons/fi';
 
@@ -30,7 +30,7 @@ export default function CompanyDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/internships/mine', { headers: { Authorization: `Bearer ${token}` } })
+    api.get('/internships/mine', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => setInternships(r.data))
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -38,7 +38,7 @@ export default function CompanyDashboard() {
 
   const handleDelete = async id => {
     if (!window.confirm('Delete this internship? All applications will also be removed.')) return;
-    await axios.delete(`/api/internships/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+    await api.delete(`/internships/${id}`, { headers: { Authorization: `Bearer ${token}` } });
     setInternships(p => p.filter(i => i.id !== id));
   };
 

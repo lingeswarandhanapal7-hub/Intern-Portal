@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import { useAuth } from '../../context/AuthContext';
 import { FiArrowLeft, FiCheck, FiX, FiDownload, FiGrid, FiPlusCircle, FiLogOut } from 'react-icons/fi';
 
@@ -37,8 +37,8 @@ export default function Applicants() {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`/api/internships/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
-      axios.get(`/api/internships/${id}/applications`, { headers: { Authorization: `Bearer ${token}` } })
+      api.get(`/internships/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+      api.get(`/internships/${id}/applications`, { headers: { Authorization: `Bearer ${token}` } })
     ]).then(([iRes, aRes]) => { setInternship(iRes.data); setApplicants(aRes.data); })
       .catch(console.error).finally(() => setLoading(false));
   }, [id, token]);
@@ -51,7 +51,7 @@ export default function Applicants() {
   const handleAction = async (appId, status) => {
     setActionLoading(appId + status);
     try {
-      await axios.put(`/api/applications/${appId}/status`, { status }, { headers: { Authorization: `Bearer ${token}` } });
+      await api.put(`/applications/${appId}/status`, { status }, { headers: { Authorization: `Bearer ${token}` } });
       setApplicants(p => p.map(a => a.id === appId ? { ...a, status } : a));
       showToast(`Applicant ${status === 'accepted' ? 'accepted' : 'rejected'} and email sent!`, status === 'accepted' ? 'success' : 'info');
     } catch {

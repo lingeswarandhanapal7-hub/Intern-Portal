@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import axios from 'axios';
+import api from '../../api';
 import ElectricBorder from '../../components/ElectricBorder/ElectricBorder';
 import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 
@@ -18,7 +18,7 @@ export default function ForgotPassword() {
   const handleSendOTP = async () => {
     setError(''); setLoading(true);
     try {
-      const res = await axios.post('/api/auth/forgot-password', { email });
+      const res = await api.post('/auth/forgot-password', { email });
       if (res.data.devOtp) setDevOtp(res.data.devOtp);
       setStep(2); // auto-advance immediately after OTP is sent
     } catch (err) {
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
   const handleReset = async () => {
     setError(''); setLoading(true);
     try {
-      await axios.post('/api/auth/reset-password', { email, otp, newPassword: newPass });
+      await api.post('/auth/reset-password', { email, otp, newPassword: newPass });
       setStep(3); // auto-advance to success
     } catch (err) {
       setError(err.response?.data?.message || 'Reset failed. Please check your OTP and try again.');
