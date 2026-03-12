@@ -1,0 +1,43 @@
+.mb-grid {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+.mb-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  min-height: 160px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(125, 249, 255, 0.12);
+  background: #0d001f;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  --glow-x: 50%; --glow-y: 50%; --glow-intensity: 0; --glow-radius: 200px;
+}
+.mb-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(82,39,255,0.3); }
+.mb-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.mb-card__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: rgba(125,249,255,0.8); }
+.mb-card__icon { font-size: 22px; }
+.mb-card__body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+.mb-card__title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.mb-card__desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+.mb-card--border-glow::after {
+  content:'';position:absolute;inset:0;padding:6px;
+  background:radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),rgba(125,249,255,calc(var(--glow-intensity)*0.7)) 0%,rgba(82,39,255,calc(var(--glow-intensity)*0.3)) 40%,transparent 65%);
+  border-radius:inherit;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;
+  pointer-events:none;z-index:1;
+}
+.mb-particle-container { position:relative; overflow:hidden; }
+.mb-global-spotlight { mix-blend-mode:screen; will-change:transform,opacity; pointer-events:none; }
+.mb-bento-section { position:relative; user-select:none; }
+@media (min-width: 600px) { .mb-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) {
+  .mb-grid { grid-template-columns: repeat(4, 1fr); }
+  .mb-card:nth-child(1) { grid-column: span 2; }
+  .mb-card:nth-child(4) { grid-column: span 2; }
+}

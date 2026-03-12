@@ -1,0 +1,17 @@
+[
+  {
+    "id": "30016d75-6c24-4bb2-aeb9-7241758a3317",
+    "companyId": "d5795a24-96cf-45de-8f6c-69dbb3c24cfd",
+    "companyName": "KSR TECH",
+    "title": "1",
+    "course": "2",
+    "durationHours": 5,
+    "durationDays": 6,
+    "isPaid": false,
+    "stipend": 0,
+    "hasIncentive": false,
+    "incentiveAmount": 0,
+    "description": "",
+    "postedAt": "2026-03-12T14:17:18.610Z"
+  }
+]

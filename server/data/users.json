@@ -1,0 +1,22 @@
+[
+  {
+    "id": "d5795a24-96cf-45de-8f6c-69dbb3c24cfd",
+    "email": "lingeswaran379@gmail.com",
+    "password": "$2a$12$zZejeBRMiQyFQ3D/sWE5geLetcyRV6TZnCFC4sO77pfivKJUB9Ffm",
+    "role": "company",
+    "username": null,
+    "companyName": "KSR TECH",
+    "verified": true,
+    "createdAt": "2026-03-12T14:15:29.605Z"
+  },
+  {
+    "id": "1571d885-2558-4f53-b467-37d62096e157",
+    "email": "lingeswarandhanapal7@gmail.com",
+    "password": "$2a$12$CZhAdKGlL2AWdlwJhb12HOnzOsbXUgkT7mvb4eM/fc6zVzrU6kJUu",
+    "role": "student",
+    "username": "Lingeswaran D",
+    "companyName": null,
+    "verified": true,
+    "createdAt": "2026-03-12T14:18:13.186Z"
+  }
+]
